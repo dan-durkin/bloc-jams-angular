@@ -1,10 +1,10 @@
 {
   "name": "bloc-jams-angular",
   "version": "0.0.2",
-  "description": "Starter project for the Bloc Frontend Web Development",
+  "description": "Bloc Jams Angular",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bloc/bloc-frontend-project-starter.git"
+    "url": "git+https://github.com/dan-durkin/bloc-jams-angular"
   },
   "main": "server.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "grunt-hapi": "^0.8.1"
   },
   "bugs": {
-    "url": "https://github.com/bloc/bloc-frontend-project-starter/issues"
+    "url": "https://github.com/dan-durkin/bloc-jams-angular/issues"
   },
   "homepage": "https://github.com/bloc/bloc-frontend-project-starter#readme",
   "keywords": [
