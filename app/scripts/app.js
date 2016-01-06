@@ -13,7 +13,7 @@
 			})
 			.state('album',{
 				url:'/album',
-				templateURL: '/templates/album.html'
+				templateUrl: '/templates/album.html'
 			});
 	}
 	
