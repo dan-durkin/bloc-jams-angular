@@ -4,7 +4,7 @@
   "description": "Bloc Jams Angular",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dan-durkin/bloc-jams-angular"
+    "url": "https://github.com/dan-durkin/bloc-jams-angular"
   },
   "main": "server.js",
   "scripts": {
