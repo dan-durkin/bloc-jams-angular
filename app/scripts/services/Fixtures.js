@@ -36,6 +36,10 @@
 			return albumPicasso;
 		};
 		
+		Fixtures.getCollection = function(){
+			
+		};
+		
 		return Fixtures;
 	}
 	
