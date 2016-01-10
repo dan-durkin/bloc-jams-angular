@@ -23,8 +23,7 @@
 		*/
 		var setSong = function(song){
 			if(currentBuzzObject){
-				currentBuzzObject.stop();
-				SongPlayer.currentSong.playing = null;
+				stopSong(SongPlayer.currentSong);
 			}
 			
 			currentBuzzObject = new buzz.sound(song.audioURL,{
@@ -37,12 +36,22 @@
 		
 		/**
 		* @function playSong
-		* @desc Used in conjuction with setSong; plays audio file as currentBuzzObject and set playing propert to treu
+		* @desc Used in conjuction with setSong; plays audio file as currentBuzzObject and set playing propert to true
 		* @param {Object} song
 		*/
 		var playSong = function(song){
 			currentBuzzObject.play();
 			song.playing = true;
+		};
+		
+		/**
+		* @function stopSong
+		* @desc Used in conjuction with setSong; stops audio file as currentBuzzObject and set playing propert to null
+		* @param {Object} song
+		*/
+		var stopSong = function(song){
+			currentBuzzObject.stop();
+			song.playing = null;
 		};
 		
 		/**
@@ -98,8 +107,25 @@
 			currentSongIndex--
 			
 			if(currentSongIndex < 0){
-				currentBuzzObject.stop();
-				SongPlayer.currentSong.playing = null;
+				stopSong(SongPlayer.currentSong);
+			}
+			else{
+				var song = currentAlbum.songs[currentSongIndex];
+				setSong(song);
+				playSong(song);
+			}
+		};
+		
+		/** @function next
+		* @desc Find the index of the currently playing song, increases the index by 1, and plays the song in the songs array at the new index.
+		* @param {Object} song
+		*/
+		SongPlayer.next = function(){
+			var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+			currentSongIndex++;
+			
+			if(currentSongIndex > currentAlbum.songs.length -1){
+				stopSong(SongPlayer.currentSong);
 			}
 			else{
 				var song = currentAlbum.songs[currentSongIndex];
