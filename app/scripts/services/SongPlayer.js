@@ -32,11 +32,13 @@
 			});
 			
 			currentBuzzObject.bind('timeupdate', function(){
+				console.log("inside timeupdate");
 				$rootScope.$apply(function(){
 					if(currentBuzzObject.getTime() >= SongPlayer.currentSong.length){
 						SongPlayer.next();
 					}
 					else{
+						console.log("setting currentTime");
 						SongPlayer.currentTime = currentBuzzObject.getTime();
 					}	
 				});
