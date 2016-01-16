@@ -3,9 +3,7 @@
 		this.albumData = Fixtures.getAlbum();
 		this.songPlayer = SongPlayer;
 		
-		$scope.$watch("songPlayer.currentTime", function () {
-			debugger;
-		});
+		SongPlayer.register($scope);
 	}
 	
 	angular
