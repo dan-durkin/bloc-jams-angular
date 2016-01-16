@@ -33,7 +33,12 @@
 			
 			currentBuzzObject.bind('timeupdate', function(){
 				$rootScope.$apply(function(){
-					SongPlayer.currentTime =currentBuzzObject.getTime()
+					if(currentBuzzObject.getTime() >= SongPlayer.currentSong.length){
+						SongPlayer.next();
+					}
+					else{
+						SongPlayer.currentTime = currentBuzzObject.getTime();
+					}	
 				});
 			});
 			
@@ -90,6 +95,15 @@
 		* @type {Number}
 		**/
 		SongPlayer.volume = null;
+		
+		/**
+		* @desc Object to keep track of if the current track is muted and what the volume was before the track was muted.
+		* @type {Object}
+		**/
+		SongPlayer.muteMemory = {
+			muted: false,
+			volumeBeforeMute: null
+		};
 		
 		/**
 		* @function play
@@ -174,6 +188,24 @@
 				newVolume = Math.floor(newVolume, 100);
 				newVolume = Math.ceil(newVolume, 0);
 				currentBuzzObject.setVolume(newVolume);
+				SongPlayer.volume(newVolume);
+			}	
+		};
+		
+		/** @function toggleVolume
+		* @desc Toggle mute/unmute of current song
+		* @param {Number} time
+		*/
+		SongPlayer.toggleMute = function(){
+			if(currentBuzzObject && !SongPlayer.muteMemory.muted){
+				SongPlayer.muteMemory.muted = true;
+				SongPlayer.muteMemory.volumeBeforeMute = SongPlayer.volume;
+				SongPlayer.setVolume(0);
+
+			}	
+			else if(currentBuzzObject && SongPlayer.muteMemory.muted){
+				SongPlayer.muteMemory.muted = false;
+				SongPlayer.setVolume(SongPlayer.muteMemory.volumeBeforeMute);
 			}	
 		};
 		
