@@ -1,6 +1,6 @@
-(function(){
-	function ProfileCtrl () {
-		
+(function (){
+	function ProfileCtrl(){
+		this.name = "Dan";
 	}
 	
 	angular

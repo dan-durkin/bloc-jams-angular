@@ -32,20 +32,26 @@
 			});
 			
 			currentBuzzObject.bind('timeupdate', function(){
-				console.log("inside timeupdate");
 				$rootScope.$apply(function(){
 					if(currentBuzzObject.getTime() >= SongPlayer.currentSong.length){
 						SongPlayer.next();
 					}
 					else{
-						console.log("setting currentTime");
 						SongPlayer.currentTime = currentBuzzObject.getTime();
 					}	
 				});
 			});
 			
-			SongPlayer.volume = 50;
 			SongPlayer.currentSong = song;
+
+			if(!SongPlayer.currentVolume && !SongPlayer.muteMemory.muted){
+				SongPlayer.setVolume(50);
+			}
+			else{
+				SongPlayer.setVolume(SongPlayer.currentVolume);
+			}
+			
+			playSong(song);
 		};
 		
 		/**
@@ -96,7 +102,7 @@
 		* @desc Current volume (0-100) of currently playing song
 		* @type {Number}
 		**/
-		SongPlayer.volume = null;
+		SongPlayer.currentVolume = null;
 		
 		/**
 		* @desc Object to keep track of if the current track is muted and what the volume was before the track was muted.
@@ -116,7 +122,7 @@
 			song = song || SongPlayer.currentSong;
 			if(SongPlayer.currentSong !== song){
 				setSong(song);
-				playSong(song);
+				//playSong(song);
 				SongPlayer.currentSong = song;
 			}
 			else if(SongPlayer.currentSong === song && currentBuzzObject.isPaused()){
@@ -149,7 +155,7 @@
 			else{
 				var song = currentAlbum.songs[currentSongIndex];
 				setSong(song);
-				playSong(song);
+				//playSong(song);
 			}
 		};
 		
@@ -167,7 +173,7 @@
 			else{
 				var song = currentAlbum.songs[currentSongIndex];
 				setSong(song);
-				playSong(song);
+				//playSong(song);
 			}
 		};
 
@@ -190,7 +196,7 @@
 				newVolume = Math.floor(newVolume, 100);
 				newVolume = Math.ceil(newVolume, 0);
 				currentBuzzObject.setVolume(newVolume);
-				SongPlayer.volume(newVolume);
+				SongPlayer.currentVolume = newVolume;
 			}	
 		};
 		
@@ -201,9 +207,8 @@
 		SongPlayer.toggleMute = function(){
 			if(currentBuzzObject && !SongPlayer.muteMemory.muted){
 				SongPlayer.muteMemory.muted = true;
-				SongPlayer.muteMemory.volumeBeforeMute = SongPlayer.volume;
+				SongPlayer.muteMemory.volumeBeforeMute = SongPlayer.currentVolume;
 				SongPlayer.setVolume(0);
-
 			}	
 			else if(currentBuzzObject && SongPlayer.muteMemory.muted){
 				SongPlayer.muteMemory.muted = false;

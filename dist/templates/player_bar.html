@@ -31,7 +31,7 @@
 			<div class="control-group volume">
 				<span class="ion-volume-high icon" ng-mouseenter="show = true" ng-mouseleave="show=false" ng-show="!show && !playerBar.songPlayer.muteMemory.muted"></span>
 				<span class="ion-volume-mute icon" ng-mouseenter="show = true" ng-mouseleave="show=false" ng-show="show || playerBar.songPlayer.muteMemory.muted" ng-click="playerBar.songPlayer.toggleMute()"></span>			
-				<seek-bar value="{{playerBar.songPlayer.volume}}" max="100" on-change="playerBar.songPlayer.setVolume(value)"></seek-bar>
+				<seek-bar value="{{playerBar.songPlayer.currentVolume}}" max="100" on-change="playerBar.songPlayer.setVolume(value)"></seek-bar>
 			</div>
 		</div>
 </section>
