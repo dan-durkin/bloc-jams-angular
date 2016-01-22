@@ -1,4 +1,4 @@
-{
+ {
   "name": "bloc-jams-angular",
   "version": "0.0.2",
   "description": "Bloc Jams Angular",
@@ -13,6 +13,7 @@
   "author": "Bloc Inc",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^2.3.2",
     "hapi": "^7.5.0",
     "path": "^0.4.9"
   },
