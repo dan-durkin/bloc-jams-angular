@@ -17,6 +17,38 @@
 		var currentBuzzObject = null;
 		
 		/**
+		* @function playSong
+		* @desc Used in conjuction with setSong; plays audio file as currentBuzzObject and set playing propert to true
+		* @param {Object} song
+		*/
+		var playSong = function(song){
+			currentBuzzObject.play();
+			song.playing = true;
+		};
+		
+		/**
+		* @function stopSong
+		* @desc Used in conjuction with setSong; stops audio file as currentBuzzObject and set playing propert to null
+		* @param {Object} song
+		*/
+		var stopSong = function(song){
+			currentBuzzObject.stop();
+			song.playing = null;
+			currentBuzzObject = null;
+			SongPlayer.currentSong = null;
+		};
+		
+		/**
+		* @function getSongIndex
+		* @desc Returns index of currentSong within the songs array
+		* @param {Object} song
+		* @return number
+		*/
+		var getSongIndex = function (song){
+			return currentAlbum.songs.indexOf(song);
+		}
+		
+		/**
 		* @function setSong
 		* @desc Stops currently playing song and loads new audio file as currentBuzzObject
 		* @param {Object} song
@@ -53,38 +85,6 @@
 			
 			playSong(song);
 		};
-		
-		/**
-		* @function playSong
-		* @desc Used in conjuction with setSong; plays audio file as currentBuzzObject and set playing propert to true
-		* @param {Object} song
-		*/
-		var playSong = function(song){
-			currentBuzzObject.play();
-			song.playing = true;
-		};
-		
-		/**
-		* @function stopSong
-		* @desc Used in conjuction with setSong; stops audio file as currentBuzzObject and set playing propert to null
-		* @param {Object} song
-		*/
-		var stopSong = function(song){
-			currentBuzzObject.stop();
-			song.playing = null;
-			currentBuzzObject = null;
-			SongPlayer.currentSong = null;
-		};
-		
-		/**
-		* @function getSongIndex
-		* @desc Returns index of currentSong within the songs array
-		* @param {Object} song
-		* @return number
-		*/
-		var getSongIndex = function (song){
-			return currentAlbum.songs.indexOf(song);
-		}
 		
 		/**
 		* @desc Active song object from list of songs
