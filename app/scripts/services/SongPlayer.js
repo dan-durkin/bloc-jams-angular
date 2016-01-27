@@ -223,3 +223,21 @@
 		.module('blocJams')
 		.factory('SongPlayer', ['$rootScope', 'Fixtures', SongPlayer]);
 })();
+
+
+/*
+
+	//Service
+	var registeredScopes = [];
+	SongPlayer.register = function (scope) {
+		regusteredScopes.push(scope);
+	};
+	
+	for (...) {
+		registeredScopes[i].apply(function () {
+		
+		})
+	}
+	
+
+*/
