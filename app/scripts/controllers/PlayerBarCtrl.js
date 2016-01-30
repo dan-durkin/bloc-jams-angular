@@ -1,7 +1,9 @@
 (function(){
 	function PlayerBarCtrl (Fixtures, SongPlayer, $scope) {
 		this.albumData = Fixtures.getAlbum();
-		this.songPlayer = SongPlayer;
+		this.songPlayer = playerBarSongPlayer = SongPlayer;
+		
+		playerBarSongPlayer.register($scope);
 	}
 	
 	angular

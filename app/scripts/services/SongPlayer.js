@@ -1,5 +1,5 @@
 (function(){
-	function SongPlayer($rootScope, Fixtures) {
+	function SongPlayer(Fixtures) {
 		/**
 		* @desc SongPlayer service; play, pause audio files
 		* @type {Object} SongPlayer
@@ -15,6 +15,12 @@
 		* @type {Object} Buzz object
 		**/
 		var currentBuzzObject = null;
+		
+		/**
+		* @desc Stores all $scope objects that need to watch Player Bar updates
+		* @type {Array} of $scope objects
+		**/
+		var registeredScopes = [];
 		
 		/**
 		* @function playSong
@@ -64,15 +70,19 @@
 			});
 			
 			currentBuzzObject.bind('timeupdate', function(){
-				$rootScope.$apply(function(){
-					if(currentBuzzObject.getTime() >= SongPlayer.currentSong.length){
-						SongPlayer.next();
-					}
-					else{
-						SongPlayer.currentTime = currentBuzzObject.getTime();
-					}	
-				});
+				for(var i=0, len = registeredScopes.length; i< len; i++){
+					registeredScopes[i].$apply(function(){
+						if(currentBuzzObject.getTime() >= SongPlayer.currentSong.length){
+							SongPlayer.next();
+						}
+						else{
+							SongPlayer.currentTime = currentBuzzObject.getTime();
+						}	
+					});
+				}
+				
 			});
+		
 			
 			SongPlayer.currentSong = song;
 
@@ -85,6 +95,7 @@
 			
 			playSong(song);
 		};
+		
 		
 		/**
 		* @desc Active song object from list of songs
@@ -111,6 +122,15 @@
 		SongPlayer.muteMemory = {
 			muted: false,
 			volumeBeforeMute: null
+		};
+		
+		/**
+		* @function register
+		* @desc  Adds $scope objects to registeredScope array
+		* @param {Object} $scope
+		*/
+		SongPlayer.register = function (scope) {
+			registeredScopes.push(scope);
 		};
 		
 		/**
@@ -221,23 +241,5 @@
 	
 	angular
 		.module('blocJams')
-		.factory('SongPlayer', ['$rootScope', 'Fixtures', SongPlayer]);
+		.factory('SongPlayer', ['Fixtures', SongPlayer]);
 })();
-
-
-/*
-
-	//Service
-	var registeredScopes = [];
-	SongPlayer.register = function (scope) {
-		regusteredScopes.push(scope);
-	};
-	
-	for (...) {
-		registeredScopes[i].apply(function () {
-		
-		})
-	}
-	
-
-*/
